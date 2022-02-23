@@ -1,0 +1,217 @@
+.penguin {
+  position: relative;
+  display: inline-block;
+  min-width: 300px;
+  width: var(--penguin-size, 300px);
+  height: var(--penguin-size, 300px);
+}
+
+.logoPenguinRightHand {
+  top: 5%;
+  left: 25%;
+  background: var(--penguin-skin, black);
+  width: 30%;
+  height: 60%;
+  border-radius: 30% 30% 120% 30%;
+  transform: rotate(130deg);
+  z-index: 1;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+  transform-origin: 0% 0%;
+  animation-timing-function: linear;
+}
+
+.rightCheek {
+  top: 15%;
+  left: 35%;
+  background: var(--penguin-belly, white);
+  width: 60%;
+  height: 70%;
+  border-radius: 70% 70% 60% 60%;
+}
+
+.leftCheek {
+  top: 15%;
+  left: 5%;
+  background: var(--penguin-belly, white);
+  width: 60%;
+  height: 70%;
+  border-radius: 70% 70% 60% 60%;
+}
+
+.belly {
+  top: 60%;
+  left: 2.5%;
+  background: var(--penguin-belly, white);
+  width: 95%;
+  height: 100%;
+  border-radius: 120% 120% 100% 100%;
+  z-index: 2;
+}
+
+.penguinTop {
+  top: 10%;
+  left: 25%;
+  background: var(--penguin-skin, black);
+  width: 50%;
+  height: 45%;
+  border-radius: 70% 70% 60% 60%;
+  z-index: 2;
+}
+
+.penguinBottom {
+  top: 40%;
+  left: 23.5%;
+  background: var(--penguin-skin, black);
+  width: 53%;
+  height: 45%;
+  border-radius: 70% 70% 100% 100%;
+  z-index: 2;
+}
+
+.rightHand {
+  top: 5%;
+  left: 25%;
+  background: var(--penguin-skin, black);
+  width: 30%;
+  height: 60%;
+  border-radius: 30% 30% 120% 30%;
+  transform: rotate(130deg);
+  z-index: 1;
+  animation-duration: 3s;
+  animation-name: wave;
+  animation-iteration-count: infinite;
+  transform-origin: 0% 0%;
+  animation-timing-function: linear;
+}
+
+@keyframes wave {
+  10% {
+    transform: rotate(110deg);
+  }
+  20% {
+    transform: rotate(130deg);
+  }
+  30% {
+    transform: rotate(110deg);
+  }
+  40% {
+    transform: rotate(130deg);
+  }
+}
+
+.leftHand {
+  top: 0%;
+  left: 75%;
+  background: black;
+  width: 30%;
+  height: 60%;
+  border-radius: 30% 30% 30% 120%;
+  transform: rotate(-45deg);
+  z-index: 1;
+}
+
+.rightFeet {
+  top: 85%;
+  left: 60%;
+  background: orange;
+  width: 15%;
+  height: 30%;
+  border-radius: 50% 50% 50% 50%;
+  transform: rotate(-80deg);
+  z-index: 1;
+}
+
+.leftFeet {
+  top: 85%;
+  left: 25%;
+  background: orange;
+  width: 15%;
+  height: 30%;
+  border-radius: 50% 50% 50% 50%;
+  transform: rotate(80deg);
+  z-index: 1;
+}
+
+.rightEye {
+  top: 45%;
+  left: 60%;
+  background: black;
+  width: 15%;
+  height: 17%;
+  border-radius: 50%;
+}
+
+.leftEye {
+  top: 45%;
+  left: 25%;
+  background: black;
+  width: 15%;
+  height: 17%;
+  border-radius: 50%;
+}
+/*   
+.sparkle {
+    // top: 25%;
+    // left:-23%;
+    // background: white;
+    // width: 150%;
+    // height: 100%;
+    // border-radius: 50%;
+} */
+
+.blushRight {
+  top: 65%;
+  left: 15%;
+  background: pink;
+  width: 15%;
+  height: 10%;
+  border-radius: 50%;
+  z-index: 2;
+}
+
+.blushLeft {
+  top: 65%;
+  left: 70%;
+  background: pink;
+  width: 15%;
+  height: 10%;
+  border-radius: 50%;
+  z-index: 2;
+}
+
+.beakTop {
+  top: 60%;
+  left: 40%;
+  background: orange;
+  width: 20%;
+  height: 10%;
+  border-radius: 50%;
+  z-index: 2;
+}
+
+.beakBottom {
+  top: 65%;
+  left: 42%;
+  background: orange;
+  width: 16%;
+  height: 10%;
+  border-radius: 50%;
+  z-index: 2;
+}
+
+.penguin *,
+.logoPenguin * {
+  position: absolute;
+}
+
+/* // logo penguin */
+.logoPenguin {
+  margin-top: 1px;
+  position: relative;
+  display: block;
+  min-width: 45px;
+  width: var(--penguin-size, 45px);
+  height: var(--penguin-size, 45px);
+  display: inline-block;
+}
