@@ -3,14 +3,15 @@ import ReactDOM from "react-dom";
 import App from "./App";
 import { ChakraProvider } from "@chakra-ui/react";
 import { BrowserRouter } from "react-router-dom";
+import PenguinProvider from "./Context/PenguinProvider";
 
 ReactDOM.render(
-  <React.StrictMode>
-    <BrowserRouter>
+  <BrowserRouter>
+    <PenguinProvider>
       <ChakraProvider>
         <App />
       </ChakraProvider>
-    </BrowserRouter>
-  </React.StrictMode>,
+    </PenguinProvider>
+  </BrowserRouter>,
   document.getElementById("root")
 );

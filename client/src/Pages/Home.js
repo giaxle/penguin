@@ -1,4 +1,5 @@
-import React from "react";
+import { React, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Container,
   Box,
@@ -15,6 +16,12 @@ import Signup from "../components/auth/Signup";
 import LogoPenguin from "../components/penguins/LogoPenguin";
 
 const Home = () => {
+  const navigate = useNavigate();
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("userInfo"));
+
+    if (user) navigate("/chats");
+  }, [navigate]);
   return (
     <Container maxW="xl" centerContent>
       <Box
