@@ -18,7 +18,7 @@ import { ViewIcon } from "@chakra-ui/icons";
 const ProfileModal = ({ user, children }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
-    <div>
+    <>
       {children ? (
         <span onClick={onOpen}>{children}</span>
       ) : (
@@ -48,9 +48,9 @@ const ProfileModal = ({ user, children }) => {
               src={user.pic}
               alt={user.name}
             />
-            <Text fontSize={{ base: "28px", md: "30px" }}>
+            {/* <Text fontSize={{ base: "28px", md: "30px" }}>
               Email: {user.email}
-            </Text>
+            </Text> */}
           </ModalBody>
 
           <ModalFooter>
@@ -60,7 +60,7 @@ const ProfileModal = ({ user, children }) => {
           </ModalFooter>
         </ModalContent>
       </Modal>
-    </div>
+    </>
   );
 };
 

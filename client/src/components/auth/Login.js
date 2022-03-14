@@ -16,12 +16,11 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [show, setShow] = useState(false);
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false);
   const toast = useToast();
   const navigate = useNavigate();
 
   const handleSubmit = async () => {
-    setLoading(true);
     if (!email || !password) {
       toast({
         title: "Fill in all fields!",
@@ -30,13 +29,13 @@ const Login = () => {
         isClosable: true,
         position: "bottom",
       });
-      setLoading(false);
       return;
     }
 
     try {
+      // setLoading(true);
       const config = {
-        header: {
+        headers: {
           "Content-Type": "application/json",
         },
       };
@@ -48,7 +47,6 @@ const Login = () => {
         },
         config
       );
-      console.log("works");
       toast({
         title: "Login successful",
         status: "success",
@@ -57,18 +55,18 @@ const Login = () => {
         position: "bottom",
       });
       localStorage.setItem("userInfo", JSON.stringify(data));
-      setLoading(false);
+      // setLoading(false);
       navigate("/chats");
-    } catch (err) {
+    } catch (error) {
       toast({
         title: "Error has occurred!",
-        description: err.response.data.message,
+        description: error.response.data.message,
         status: "error",
         duration: 5000,
         isClosable: true,
         position: "top",
       });
-      setLoading(false);
+      // setLoading(false);
     }
   };
 
@@ -77,6 +75,7 @@ const Login = () => {
       <FormControl>
         <FormLabel fontWeight={"bold"}>Email</FormLabel>
         <Input
+          value={email}
           placeholder="Do penguins have emails?"
           onChange={(e) => setEmail(e.target.value)}
         />
@@ -85,6 +84,7 @@ const Login = () => {
         <FormLabel fontWeight={"bold"}>Password</FormLabel>
         <InputGroup>
           <Input
+            value={password}
             type={show ? "text" : "password"}
             placeholder="Ooo password..."
             onChange={(e) => setPassword(e.target.value)}

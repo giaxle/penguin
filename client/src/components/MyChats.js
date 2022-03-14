@@ -1,19 +1,37 @@
 import { React, useState, useEffect } from "react";
-import { useToast, Box, Button, Stack, Text } from "@chakra-ui/react";
-import { AddIcon } from "@chakra-ui/icons";
-import ChatLoading from "./misc/ChatLoading";
-
-import { PenguinState } from "../Context/PenguinProvider";
 import axios from "axios";
+import {
+  useToast,
+  Box,
+  Button,
+  Stack,
+  Text,
+  Tooltip,
+  useDisclosure,
+} from "@chakra-ui/react";
+import ChatLoading from "./misc/ChatLoading";
+import { PenguinState } from "../Context/PenguinProvider";
+import GroupModal from "./misc/GroupModal";
+import { getSender } from "./logic/ChatLogic";
+import SideDrawer from "./misc/SideDrawer";
 
-const MyChats = () => {
-  const [loggedUser, setLoggedUser] = useState();
-  const { selectedChat, setSelectedChat, user, chats, setChats } =
-    PenguinState();
+const MyChats = ({ fetchAgain }) => {
+  // const [loggedUser, setLoggedUser] = useState();
+  const [loading, setLoading] = useState();
+  const {
+    user,
+    selectedChat,
+    setSelectedChat,
+    chats,
+    setChats,
+    notification,
+    setNotification,
+  } = PenguinState();
+
   const toast = useToast();
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const fetchChats = async () => {
-    // console.log(user._id);
     try {
       const config = {
         headers: {
@@ -22,7 +40,6 @@ const MyChats = () => {
       };
 
       const { data } = await axios.get("/api/chat", config);
-      console.log(data);
       setChats(data);
     } catch (error) {
       toast({
@@ -36,15 +53,37 @@ const MyChats = () => {
     }
   };
 
-  const getSender = (loggedUser, users) => {
-    return users[0]._id === loggedUser._id ? users[1].name : users[0].name;
-  };
+  // const fetchNotifications = async () => {
+  //   try {
+  //     const config = {
+  //       headers: {
+  //         Authorization: `Bearer ${user.token}`,
+  //       },
+  //     };
+
+  //     const { data } = await axios.get("/api/message/notification", config);
+  //     setNotification([data, ...notification]);
+  //   } catch (error) {
+  //     toast({
+  //       title: "Error Occured!",
+  //       description: "Failed to load notifications",
+  //       status: "error",
+  //       duration: 5000,
+  //       isClosable: true,
+  //       position: "bottom",
+  //     });
+  //   }
+  // };
 
   useEffect(() => {
-    setLoggedUser(JSON.parse(localStorage.getItem("userInfo")));
+    // if (loggedUser === undefined) {
+    //   setLoading(true);
+    // }
+    // setLoggedUser(JSON.parse(localStorage.getItem("userInfo")));
+
     fetchChats();
-    // eslint-disable-next-line
-  }, []);
+    setLoading(false);
+  }, [fetchAgain]);
   return (
     <Box
       d={{ base: selectedChat ? "none" : "flex", md: "flex" }}
@@ -63,18 +102,37 @@ const MyChats = () => {
         fontWeight={"bold"}
         fontFamily={"Work sans"}
         d={"flex"}
+        flexDirection={"column"}
         w={"100%"}
         justifyContent={"space-between"}
-        alignItems={"center"}
       >
-        Penguin Chats
-        <Button
-          d={"flex"}
-          fontSize={{ base: "17px", md: "10px", lg: "17px" }}
-          rightIcon={<AddIcon />}
+        <Text fontSize={"28px"}>Penguin Chats</Text>
+        <hr />
+        <Text fontSize={"16px"} marginTop={3}>
+          Find a person to chat or create a group chat
+        </Text>
+        <Box
+          width={"100%"}
+          display={"flex"}
+          marginTop={3}
+          gap={3}
+          flexWrap={"wrap"}
         >
-          Add Group Chat
-        </Button>
+          <Tooltip label="Search Users to chat" hasArrow placement="bottom-end">
+            <Button
+              onClick={onOpen}
+              marginBottom={3}
+              width={"100%;"}
+              maxWidth={"400px"}
+            >
+              <i className="fas fa-search"></i>
+              <Text d={{ md: "flex" }} px={4} fontSize={"18px"}>
+                Search User
+              </Text>
+            </Button>
+          </Tooltip>
+          <GroupModal onOpen={onOpen} />
+        </Box>
       </Box>
       <Box
         d={"flex"}
@@ -92,16 +150,17 @@ const MyChats = () => {
               return (
                 <Box
                   onClick={() => setSelectedChat(chat)}
-                  bg={selectedChat === chat ? "#38B2AC" : "#E8E8E8"}
+                  bg={selectedChat === chat ? "#4299e1" : "#E8E8E8"}
                   color={selectedChat === chat ? "white" : "black"}
                   px={3}
                   py={2}
                   borderRadius={"lg"}
+                  cursor={"pointer"}
                   key={chat._id}
                 >
                   <Text>
                     {!chat.isGroupChat
-                      ? getSender(loggedUser, chat.users)
+                      ? getSender(user, chat.users)
                       : chat.chatName}
                   </Text>
                 </Box>
@@ -112,6 +171,7 @@ const MyChats = () => {
           <ChatLoading />
         )}
       </Box>
+      <SideDrawer isOpen={isOpen} onOpen={onOpen} onClose={onClose} />
     </Box>
   );
 };

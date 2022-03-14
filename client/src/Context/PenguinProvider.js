@@ -7,6 +7,7 @@ const PenguinProvider = ({ children }) => {
   const [user, setUser] = useState();
   const [selectedChat, setSelectedChat] = useState();
   const [chats, setChats] = useState();
+  const [notification, setNotification] = useState([]);
 
   const navigate = useNavigate();
   useEffect(() => {
@@ -17,10 +18,19 @@ const PenguinProvider = ({ children }) => {
     } else {
       navigate("/");
     }
-  }, [navigate]);
+  }, [navigate, selectedChat]);
   return (
     <PenguinContext.Provider
-      value={{ user, setUser, selectedChat, setSelectedChat, chats, setChats }}
+      value={{
+        user,
+        setUser,
+        selectedChat,
+        setSelectedChat,
+        chats,
+        setChats,
+        notification,
+        setNotification,
+      }}
     >
       {children}
     </PenguinContext.Provider>
